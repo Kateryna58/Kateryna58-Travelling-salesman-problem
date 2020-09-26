@@ -1,112 +1,82 @@
-<!-- START SIGMA IMPORTS -->
-<script src="sigma.js-1.2.1/src/sigma.core.js"></script>
-<script src="sigma.js-1.2.1/src/conrad.js"></script>
-<script src="sigma.js-1.2.1/src/utils/sigma.utils.js"></script>
-<script src="sigma.js-1.2.1/src/utils/sigma.polyfills.js"></script>
-<script src="sigma.js-1.2.1/src/sigma.settings.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.dispatcher.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.configurable.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.graph.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.camera.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.quad.js"></script>
-<script src="sigma.js-1.2.1/src/classes/sigma.classes.edgequad.js"></script>
-<script src="sigma.js-1.2.1/src/captors/sigma.captors.mouse.js"></script>
-<script src="sigma.js-1.2.1/src/captors/sigma.captors.touch.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/sigma.renderers.canvas.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/sigma.renderers.webgl.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/sigma.renderers.svg.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/sigma.renderers.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.utils.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js"></script>
-<script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js"></script>
-<script src="sigma.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js"></script>
-<script src="sigma.js-1.2.1/src/middlewares/sigma.middlewares.copy.js"></script>
-<script src="sigma.js-1.2.1/src/misc/sigma.misc.animation.js"></script>
-<script src="sigma.js-1.2.1/src/misc/sigma.misc.bindEvents.js"></script>
-<script src="sigma.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
-<script src="sigma.js-1.2.1/src/misc/sigma.misc.drawHovers.js"></script>
-<!-- END SIGMA IMPORTS -->
-<div id="container">
-    <style>
-        body {
-            background-color: black;
-            margin: 0 auto;
-        }
-        
-        #graph-container {
-            width: 70%;
-            top: 5px;
-            bottom: 0;
-            left: 5px;
-            right: 15px;
-            position: absolute;
-            background-color: black;
-            border: 1px dashed gainsboro;
-            margin: 15px;
-        }
-    </style>
-    <div id="graph-container"></div>
-</div>
-<script>
-    /**
-     * This is a basic example on how to instantiate sigma. A random graph is
-     * generated and stored in the "graph" variable, and then sigma is instantiated
-     * directly with the graph.
-     *
-     * The simple instance of sigma is enough to make it render the graph on the on
-     * the screen, since the graph is given directly to the constructor.
-     */
-    var i,
-        s,
-        N = 10,
-        E = 500,
-        g = {
-            nodes: [],
-            edges: []
-        };
+<!DOCTYPE html>
+<html lang="en">
 
-    // Generate a random graph:
-    for (i = 0; i < N; i++)
-        g.nodes.push({
-            id: 'n' + i,
-            x: Math.random(),
-            y: Math.random(),
-            size: Math.random(),
-            color: 'rgb(224, 42, 42)'
-        });
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- START SIGMA IMPORTS -->
+    <!-- <script src="sigma.js-1.2.1/src/sigma.core.js"></script>
+    <script src="sigma.js-1.2.1/src/conrad.js"></script>
+    <script src="sigma.js-1.2.1/src/utils/sigma.utils.js"></script>
+    <script src="sigma.js-1.2.1/src/utils/sigma.polyfills.js"></script>
+    <script src="sigma.js-1.2.1/src/sigma.settings.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.dispatcher.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.configurable.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.graph.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.camera.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.quad.js"></script>
+    <script src="sigma.js-1.2.1/src/classes/sigma.classes.edgequad.js"></script>
+    <script src="sigma.js-1.2.1/src/captors/sigma.captors.mouse.js"></script>
+    <script src="sigma.js-1.2.1/src/captors/sigma.captors.touch.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/sigma.renderers.svg.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/sigma.renderers.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="sigma.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="sigma.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="sigma.js-1.2.1/src/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="sigma.js-1.2.1/src/misc/sigma.misc.animation.js"></script>
+    <script src="sigma.js-1.2.1/src/misc/sigma.misc.bindEvents.js"></script>
+    <script src="sigma.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="sigma.js-1.2.1/src/misc/sigma.misc.drawHovers.js"></script> -->
+    <!-- END SIGMA IMPORTS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    for (i = 0; i < E; i++)
-        g.edges.push({
-            id: 'e' + i,
-            source: 'n' + (Math.random() * N | 0),
-            target: 'n' + (Math.random() * N | 0),
-            size: Math.random(),
-            color: '#ccc'
-        });
+<body>
+    <div id="container">
+        <div id="graph-container">
+        </div>
 
-    // Instantiate sigma:
-    s = new sigma({
-        graph: g,
-        container: 'graph-container'
-    });
-</script>
+    </div>
+    <div id="form">
+        <h1>Enter data, please:</h1>
+        <form>
+            <h2>Cities:</h2>
+            <select id="cities">
+                <option>5</option>
+                <option >10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+            </select>
+            <input type="button" onclick="createGraph()" value="RUN">
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

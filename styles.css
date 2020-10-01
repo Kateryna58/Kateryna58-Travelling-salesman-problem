@@ -76,3 +76,10 @@ line {
     background-color: red;
     border: 1px solid yellow;
 }
+
+.point {
+    font-size: 14px;
+    color: white;
+    font-style: bold;
+    text-align: center;
+}

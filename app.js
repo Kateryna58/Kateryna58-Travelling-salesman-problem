@@ -36,12 +36,15 @@ function createGraph() {
         }
 
     }
-    var length = new Array();
-    var x1, x0, y1, y0;
+    var len = new Array();
     for (let i = 0; i < pairs.length; i++) {
-        length[i] = Math.sqrt(Math.pow(points[pairs[i][1]][0] - points[pairs[i][0]][0], 2) + Math.pow(points[pairs[i][1]][1] - points[pairs[i][0]][1], 2));
+        len[i] = [Math.sqrt(Math.pow(points[pairs[i][1]][0] - points[pairs[i][0]][0], 2) + Math.pow(points[pairs[i][1]][1] - points[pairs[i][0]][1], 2)), ];
     }
-    console.log(length);
-    console.log(pairs);
-    console.log(points);
+    for (let i = 0; i < len.length; i++) {
+        len[i][1] = 1 / len[i][0];
+    }
+
+    console.log(len);
+    // console.log(pairs);
+    // console.log(points);
 }

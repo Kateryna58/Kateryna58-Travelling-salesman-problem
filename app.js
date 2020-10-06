@@ -36,17 +36,9 @@ function createGraph() {
         }
 
     }
-    // console.log(points);
     var length = new Array();
-    // length = Math.sqrt(Math.pow(points[1][0] - points[0][0], 2) + Math.pow(points[1][1] - points[0][1], 2));
-    // console.log(points[pairs[0][0]][pairs[0][0]]);
-    // console.log(points[0][0]);
     var x1, x0, y1, y0;
     for (let i = 0; i < pairs.length; i++) {
-        // x1 = points[pairs[i][i++]][0];
-        // x0 = points[pairs[i][i]][0];
-        // y1 = points[pairs[i][i++]][1];
-        // y0 = points[pairs[i][i]][1];
         length[i] = Math.sqrt(Math.pow(points[pairs[i][1]][0] - points[pairs[i][0]][0], 2) + Math.pow(points[pairs[i][1]][1] - points[pairs[i][0]][1], 2));
     }
     console.log(length);

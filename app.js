@@ -68,7 +68,7 @@ function createGraph() {
     var j = 0;
     for (let i = 0; i < pairs.length; i++) {
         if (pairs[i][0] == curCity || pairs[i][1] == curCity) {
-            P[j] = (Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA)) / summ;
+            P[j] = [(Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA)) / summ, pairs[i][0], pairs[i][1]];
             j++;
         }
     }
@@ -76,15 +76,21 @@ function createGraph() {
     function min(obj) {
         var a = obj[0];
         for (var i = 1; i < obj.length; i++) {
-            if (obj[i] < a) {
+            if (obj[i] > a) {
                 a = obj[i];
             }
         }
         return a;
     }
+    var indexGoodRoad = P.indexOf(min(P));
+    document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='2px' stroke='rgb(248, 58, 58)'  x1=" + points[P[indexGoodRoad][1]][0] + "px y1=" + points[P[indexGoodRoad][1]][1] + "px x2=" + points[P[indexGoodRoad][2]][0] + "px y2=" + points[P[indexGoodRoad][2]][1] + "px /></svg>";
 
+
+
+
+
+    console.log("P:\n", P.indexOf(min(P)));
     console.log("P:\n", min(P));
     console.log("P:\n", P);
-    // console.log("P:\n", P.indexOf(min(P)));
-
+    console.log("P:\n", P[indexGoodRoad][1]);
 }

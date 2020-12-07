@@ -23,7 +23,6 @@ function createGraph() {
                 points[i][j] = Y;
             }
         }
-
         document.querySelector('#graph-container').innerHTML += "<div class='point p" + i + "' style='top:" + Y + "px;left:" + X + "px;'>" + (i) + "</div>";
     }
     let pairs = new Array();
@@ -41,7 +40,7 @@ function createGraph() {
         len[i] = [Math.sqrt(Math.pow(points[pairs[i][1]][0] - points[pairs[i][0]][0], 2) + Math.pow(points[pairs[i][1]][1] - points[pairs[i][0]][1], 2)), ]; //ADDED LENGTH
     }
 
-    let summ = 0,
+    let summ,
         ALPHA = 1,
         BETA = 5,
         RHO = 0.5,
@@ -54,60 +53,57 @@ function createGraph() {
     // console.log("LEN(length,n(r,u),pheromone t0):\n", len);
     // console.log("pairs:\n", pairs);
     // console.log("points:\n", points);
+    var indexGoodRoad, P = new Array(),curCity,tabu = new Array();
 
-    function findTheBestRoad() {
-        let tabu = new Array();
-        let indexGoodRoad, P = new Array();
-        let curCity = 0,
-            count = 0;
+    function findTheBestRoad(a) {
+        summ=0;
+        tabu = [];
+        indexGoodRoad=0;
+        curCity = a;
+        count = 0;
         tabu[count] = curCity;
-
-        while (curCity!= N-1 ) {
-            P = [], summ = 0;
-            for (let i = 0; i < pairs.length; i++) {
-                if  ((pairs[i].includes(curCity))&&!(tabu.includes(pairs[i][0])&&(pairs[i][0] != curCity))&&!(tabu.includes(pairs[i][1])&&(pairs[i][1] != curCity))) {
-                    summ += Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA);
-
-                }
+    while (curCity!= N-1 ) {
+        P = [], summ = 0;
+        for (let i = 0; i < pairs.length; i++) {
+            if  ((pairs[i].includes(curCity))&&!(tabu.includes(pairs[i][0])&&(pairs[i][0] != curCity))&&!(tabu.includes(pairs[i][1])&&(pairs[i][1] != curCity))) {
+                summ += Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA);
             }
-            console.log("proverka:\n", pairs[0].includes(curCity));
-            console.log("carent city:\n", curCity);
-
-            let j = 0;
-            for (let i = 0; i < pairs.length; i++) {
-                if  ((pairs[i].includes(curCity))&&!(tabu.includes(pairs[i][0])&&(pairs[i][0] != curCity))&&!(tabu.includes(pairs[i][1])&&(pairs[i][1] != curCity))) {
-                    P[j] = [(Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA)) / summ, pairs[i][0], pairs[i][1]];
-                    j++;
-                    
-                    console.log("pairs mine:\n", pairs[i][0],"hhh",pairs[i][1]);
-                }
-            }
-
-            function max(obj) {
-                let a = obj[0];
-                for (let i = 1; i < obj.length; i++) {
-                    if (obj[i] > a) {
-                        a = obj[i];
-                    }
-                }
-                return a;
-            }
-
-            indexGoodRoad = P.indexOf(max(P));
-           
-            console.log("P[indexGoodRoad]",P[indexGoodRoad]);
-            for (let i = 1; i < 3; i++) {
-                if(P[indexGoodRoad][i]!=curCity){
-                    curCity = P[indexGoodRoad][i];
-                    count++;
-                    tabu[count] = P[indexGoodRoad][i];
-                    break;
-                }
-            }
-            document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='2px' stroke='rgb(248, 58, 58)'  x1=" + points[P[indexGoodRoad][1]][0] + "px y1=" + points[P[indexGoodRoad][1]][1] + "px x2=" + points[P[indexGoodRoad][2]][0] + "px y2=" + points[P[indexGoodRoad][2]][1] + "px /></svg>";
         }
-        console.log("tabu",tabu);
+        // console.log("proverka:\n", pairs[0].includes(curCity));
+        // console.log("carent city:\n", curCity);
+        let j = 0;
+        for (let i = 0; i < pairs.length; i++) {
+            if  ((pairs[i].includes(curCity))&&!(tabu.includes(pairs[i][0])&&(pairs[i][0] != curCity))&&!(tabu.includes(pairs[i][1])&&(pairs[i][1] != curCity))) {
+                P[j] = [(Math.pow(len[i][2], ALPHA) * Math.pow(len[i][1], BETA)) / summ, pairs[i][0], pairs[i][1]];
+                j++;
+                // console.log("pairs mine:\n", pairs[i][0],"hhh",pairs[i][1]);
+            }
+        }
+        function max(obj) {
+            let a = obj[0];
+            for (let i = 1; i < obj.length; i++) {
+                if (obj[i] > a) {
+                    a = obj[i];
+                }
+            }
+            return a;
+        }
 
+        indexGoodRoad = P.indexOf(max(P));
+        // console.log("P[indexGoodRoad]",P[indexGoodRoad]);
+        for (let i = 1; i < 3; i++) {
+            if(P[indexGoodRoad][i]!=curCity){
+                curCity = P[indexGoodRoad][i];
+                count++;
+                tabu[count] = P[indexGoodRoad][i];
+                break;
+            }
+        }
+        // document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='2px' stroke='rgb(248, 58, 58)'  x1=" + points[P[indexGoodRoad][1]][0] + "px y1=" + points[P[indexGoodRoad][1]][1] + "px x2=" + points[P[indexGoodRoad][2]][0] + "px y2=" + points[P[indexGoodRoad][2]][1] + "px /></svg>";
     }
-    findTheBestRoad();
+    }
+    for(i=0;i<N;i++){
+        findTheBestRoad(i);
+        console.log("tabu",i,":",tabu);
+    }
 }

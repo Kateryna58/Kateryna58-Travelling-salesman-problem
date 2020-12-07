@@ -62,7 +62,7 @@ function createGraph() {
         curCity = a;
         count = 0;
         tabu[count] = curCity;
-    while (curCity!= N-1 ) {
+    while (tabu.length!= N ) {
         P = [], summ = 0;
         for (let i = 0; i < pairs.length; i++) {
             if  ((pairs[i].includes(curCity))&&!(tabu.includes(pairs[i][0])&&(pairs[i][0] != curCity))&&!(tabu.includes(pairs[i][1])&&(pairs[i][1] != curCity))) {

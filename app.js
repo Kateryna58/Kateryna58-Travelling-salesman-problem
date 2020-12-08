@@ -29,7 +29,7 @@ function createGraph() {
     let k = 0;
     for (let i = 0; i < N; i++) {
         for (let j = i + 1; j < N; j++) {
-            document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='1px' stroke='#000'  x1=" + points[i][0] + "px y1=" + points[i][1] + "px x2=" + points[j][0] + "px y2=" + points[j][1] + "px /></svg>";
+            document.querySelector('#graph-container').innerHTML += "<svg class='rebro'><line stroke-width='1px' stroke='#000'  x1=" + points[i][0] + "px y1=" + points[i][1] + "px x2=" + points[j][0] + "px y2=" + points[j][1] + "px /></svg>";
             pairs[k] = [i, j];
             k++;
         }
@@ -49,10 +49,10 @@ function createGraph() {
         len[i][4] = Q / N; //pher t0
         
     }
-    console.log("LEN(length,n(r,u),pheromone t0):\n", len);
+    // console.log("LEN(length,n(r,u),pheromone t0):\n", len);
     // console.log("pairs:\n", pairs);
     // console.log("points:\n", points);
-    var indexGoodRoad, P = new Array(),curCity,tabu = new Array();
+    var indexGoodRoad, P = new Array(),curCity,tabu = new Array(),bestRoadsList=new Array(),l=0;
 
     function findTheBestRoad(a) {
         summ=0;
@@ -61,6 +61,7 @@ function createGraph() {
         curCity = a;
         count = 0;
         tabu[count] = curCity;
+        var noMatches=false;
     while (tabu.length!= N ) {
         P = [], summ = 0;
         for (let i = 0; i < pairs.length; i++) {
@@ -98,23 +99,46 @@ function createGraph() {
                 break;
             }
         }
+                
         // document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='2px' stroke='rgb(248, 58, 58)'  x1=" + points[P[indexGoodRoad][1]][0] + "px y1=" + points[P[indexGoodRoad][1]][1] + "px x2=" + points[P[indexGoodRoad][2]][0] + "px y2=" + points[P[indexGoodRoad][2]][1] + "px /></svg>";
     }
         
+    
+        
     }
-
-    for(i=0;i<N;i++){
-        findTheBestRoad(i);
-        console.log("tabu",i,":",tabu);
-        for(let i=0;i<tabu.length-1;i++){
-            console.log(tabu[i],"and",tabu[i+1]," ;");
-            for(let j=0;j<len.length;j++){
-                if(len[j][1]==tabu[i]&&len[j][2]==tabu[i+1]||len[j][2]==tabu[i]&&len[j][1]==tabu[i+1]){
-                    len[j][4]+=len[j][4];
-                    len[j][4]*=RHO;
-                    console.log('do it');
+        for(let i=0;i<15;i++){
+            for(let i=0;i<N;i++){
+                findTheBestRoad(i);
+                for(let i=0;i<tabu.length-1;i++){
+                    // console.log(tabu[i],"and",tabu[i+1]," ;");
+                    for(let j=0;j<len.length;j++){
+                        if(len[j][1]==tabu[i]&&len[j][2]==tabu[i+1]||len[j][2]==tabu[i]&&len[j][1]==tabu[i+1]){
+                            len[j][4]+=len[j][4];
+                            len[j][4]*=RHO;
+                            // console.log('do it');
+                        }else{
+                            len[j][4]*=(1-RHO);
+                        }
+                    }
                 }
+                bestRoadsList[l]=tabu;
+                l++;
             }
+            
+           
+            // if(bestRoadsList.includes(tabu)){
+            //     break;
+            // }
+
+}
+
+    console.log("points",points);
+
+if(bestRoadsList.includes(tabu)){
+        console.log("includes",tabu);
+        for(let i=0;i<tabu.length-1;i++){
+            document.querySelector('#graph-container').innerHTML += "<svg><line stroke-width='2px' stroke='rgb(248, 58, 58)'  x1=" + points[tabu[i]][0] + "px y1=" + points[tabu[i]][1] + "px x2=" + points[tabu[i+1]][0] + "px y2=" + points[tabu[i+1]][1] + "px /></svg>";
         }
-    }
+}    
+console.log(tabu);
 }
